@@ -131,7 +131,7 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-slate-200/80 pt-6 text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-500 sm:flex-row">
           <p>
-            © {new Date().getFullYear()} Shongjog Technologies Inc. All rights
+            &copy; {new Date().getFullYear()} Shongjog Technologies Inc. All rights
             reserved.
           </p>
           <p className="flex items-center gap-1 text-[11px]">
