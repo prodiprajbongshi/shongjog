@@ -24,7 +24,10 @@ export default function Footer() {
             </Link>
 
             <p className="max-w-sm text-sm leading-6 text-justify text-slate-500 dark:text-slate-400">
-             Bringing great people and great tech teams together, from the first search to the final offer. We simplify recruitment, connect talented professionals with exciting opportunities, and empower businesses to build exceptional teams.
+              Bringing great people and great tech teams together, from the
+              first search to the final offer. We simplify recruitment, connect
+              talented professionals with exciting opportunities, and empower
+              businesses to build exceptional teams.
             </p>
           </div>
 
@@ -130,10 +133,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-slate-200/80 pt-6 text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-500 sm:flex-row">
-          <p>
-            &copy; {new Date().getFullYear()} Shongjog Technologies Inc. All rights
-            reserved.
-          </p>
+          <p>&copy; 2026 Shongjog Technologies Inc. All rights reserved.</p>
           <p className="flex items-center gap-1 text-[11px]">
             Made for better connections in tech hiring.
           </p>
