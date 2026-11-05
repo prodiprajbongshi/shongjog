@@ -6,7 +6,8 @@ import { Job } from "@/types";
 import { useAppStore } from "@/stores/useAppStore";
 import { StatusBadge } from "./StatusBadge";
 import { ApplyModal } from "./ApplyModal";
-import { formatCurrency, formatRelativeTime } from "@/lib/utils";
+import { RelativeTime } from "./RelativeTime";
+import { formatCurrency } from "@/lib/utils";
 import {
   Bookmark,
   MapPin,
@@ -144,7 +145,8 @@ export function JobCard({ job, compact = false }: JobCardProps) {
         <div className="mt-auto flex flex-col gap-4 border-t border-slate-100 pt-4 sm:mt-5 sm:flex-row sm:items-center sm:justify-between dark:border-slate-800/80">
           <div className="flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-1 text-xs text-slate-400">
-              <Clock className="h-3 w-3" /> {formatRelativeTime(job.postedAt)}
+              <Clock className="h-3 w-3" />{" "}
+              <RelativeTime dateString={job.postedAt} />
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-indigo-100 bg-indigo-50/70 px-2.5 py-1 text-[10px] font-semibold text-indigo-700 dark:border-indigo-900/70 dark:bg-indigo-950/50 dark:text-indigo-300">
               <Sparkles className="h-3 w-3" /> {matchScore}% AI Match

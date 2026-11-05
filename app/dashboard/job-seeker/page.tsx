@@ -4,9 +4,10 @@ import React from "react";
 import Link from "next/link";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { StatCard } from "@/components/ui/StatCard";
+import { RelativeTime } from "@/components/ui/RelativeTime";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { useAppStore } from "@/stores/useAppStore";
-import { formatCurrency, formatRelativeTime } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import {
   Briefcase,
   FileCheck,
@@ -290,7 +291,7 @@ export default function JobSeekerDashboard() {
                       </div>
                     </td>
                     <td className="py-3 text-slate-500 dark:text-slate-400">
-                      {formatRelativeTime(app.appliedAt)}
+                      <RelativeTime dateString={app.appliedAt} />
                     </td>
                     <td className="py-3">
                       <StatusBadge status={app.status} size="sm" />
@@ -368,4 +369,3 @@ export default function JobSeekerDashboard() {
     </DashboardLayout>
   );
 }
-

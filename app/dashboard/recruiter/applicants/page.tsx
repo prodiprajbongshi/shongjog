@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import { RelativeTime } from "@/components/ui/RelativeTime";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Modal } from "@/components/ui/Modal";
 import { useAppStore } from "@/stores/useAppStore";
 import { Application, ApplicationStatus, InterviewType } from "@/types";
-import { formatCurrency, formatRelativeTime } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import {
   Users,
   Search,
@@ -215,7 +216,7 @@ export default function RecruiterApplicantsPage() {
                     </td>
 
                     <td className="py-3 px-4 text-slate-500 dark:text-slate-400">
-                      {formatRelativeTime(app.appliedAt)}
+                      <RelativeTime dateString={app.appliedAt} />
                     </td>
 
                     <td className="py-3 px-5 text-right" onClick={(e) => e.stopPropagation()}>
@@ -528,4 +529,3 @@ export default function RecruiterApplicantsPage() {
     </DashboardLayout>
   );
 }
-

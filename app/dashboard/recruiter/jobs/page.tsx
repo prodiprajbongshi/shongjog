@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import { RelativeTime } from "@/components/ui/RelativeTime";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { useAppStore } from "@/stores/useAppStore";
-import { formatCurrency, formatRelativeTime } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import {
   Briefcase,
   PlusCircle,
@@ -137,7 +138,8 @@ export default function RecruiterJobsPage() {
                       {formatCurrency(job.salaryMin)} - {formatCurrency(job.salaryMax)} / yr
                     </span>
                     <span className="flex items-center gap-1">
-                      <Clock className="h-3.5 w-3.5 text-slate-400" /> Posted {formatRelativeTime(job.postedAt)}
+                      <Clock className="h-3.5 w-3.5 text-slate-400" /> Posted{" "}
+                      <RelativeTime dateString={job.postedAt} />
                     </span>
                   </div>
                 </div>
@@ -186,4 +188,3 @@ export default function RecruiterJobsPage() {
     </DashboardLayout>
   );
 }
-

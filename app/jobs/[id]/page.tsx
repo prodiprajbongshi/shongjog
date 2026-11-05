@@ -5,11 +5,12 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { RelativeTime } from "@/components/ui/RelativeTime";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { ApplyModal } from "@/components/ui/ApplyModal";
 import { JobCard } from "@/components/ui/JobCard";
 import { useAppStore } from "@/stores/useAppStore";
-import { formatCurrency, formatRelativeTime } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import {
   MapPin,
   DollarSign,
@@ -136,7 +137,8 @@ export default function JobDetailsPage() {
                       <MapPin className="h-3.5 w-3.5 text-slate-400" /> {job.location}
                     </span>
                     <span className="inline-flex items-center gap-1">
-                      <Clock className="h-3.5 w-3.5 text-slate-400" /> Posted {formatRelativeTime(job.postedAt)}
+                      <Clock className="h-3.5 w-3.5 text-slate-400" /> Posted{" "}
+                      <RelativeTime dateString={job.postedAt} />
                     </span>
                     <span className="inline-flex items-center gap-1 font-semibold text-emerald-600 dark:text-emerald-400">
                       <DollarSign className="h-3.5 w-3.5" /> {formatCurrency(job.salaryMin)} - {formatCurrency(job.salaryMax)} / yr
@@ -416,4 +418,3 @@ export default function JobDetailsPage() {
     </div>
   );
 }
-

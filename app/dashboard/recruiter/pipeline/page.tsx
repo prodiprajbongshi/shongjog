@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import { RelativeTime } from "@/components/ui/RelativeTime";
 import { useAppStore } from "@/stores/useAppStore";
 import { PIPELINE_STAGES } from "@/lib/constants";
 import { Application, ApplicationStatus } from "@/types";
-import { formatCurrency, formatRelativeTime } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import {
   GitPullRequest,
   Search,
@@ -177,7 +178,7 @@ export default function HiringPipelinePage() {
 
                       {/* Footer: Date & Advance Arrows */}
                       <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-2 text-[10px] text-slate-400 dark:border-slate-800">
-                        <span>{formatRelativeTime(app.appliedAt)}</span>
+                        <RelativeTime dateString={app.appliedAt} />
 
                         <div className="flex items-center gap-1">
                           {stage.id !== "applied" && (
@@ -211,4 +212,3 @@ export default function HiringPipelinePage() {
     </DashboardLayout>
   );
 }
-

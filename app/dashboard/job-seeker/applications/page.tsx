@@ -1,13 +1,13 @@
 "use client";
-
 import React, { useState } from "react";
 import Link from "next/link";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Modal } from "@/components/ui/Modal";
+import { RelativeTime } from "@/components/ui/RelativeTime";
 import { useAppStore } from "@/stores/useAppStore";
 import { Application, ApplicationStatus } from "@/types";
-import { formatCurrency, formatRelativeTime } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import {
   Briefcase,
   Search,
@@ -134,7 +134,9 @@ export default function ApplicationsPage() {
                         {formatCurrency(app.salaryMin)} - {formatCurrency(app.salaryMax)}
                       </span>
                       <span>•</span>
-                      <span>Applied {formatRelativeTime(app.appliedAt)}</span>
+                      <span>
+                        Applied <RelativeTime dateString={app.appliedAt} />
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -246,4 +248,3 @@ export default function ApplicationsPage() {
     </DashboardLayout>
   );
 }
-
