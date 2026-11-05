@@ -56,7 +56,7 @@ export default function JobSeekerDashboard() {
   return (
     <DashboardLayout
       role="job_seeker"
-      title={`Welcome back, ${seekerProfile.fullName.split(" ")[0]} 👋`}
+      title={`Welcome back, ${seekerProfile.fullName.split(" ")[0]}`}
       subtitle="Here is what's happening with your job applications and upcoming interviews."
       actions={
         <Link

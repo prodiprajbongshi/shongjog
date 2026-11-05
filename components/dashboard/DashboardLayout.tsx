@@ -28,12 +28,9 @@ import {
   LogOut,
   Menu,
   X,
-  Search,
+ 
   Sparkles,
-  ChevronRight,
-  ChevronDown,
-  Building2,
-  Cpu,
+ 
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -171,9 +168,6 @@ export default function DashboardLayout({
             {mobileSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-white font-mono font-bold text-sm">
-              SJ
-            </div>
             <span className="font-bold text-slate-900 dark:text-white text-sm">
               Shongjog
             </span>
@@ -198,9 +192,7 @@ export default function DashboardLayout({
         {/* Brand */}
         <div className="flex h-16 items-center justify-between border-b border-slate-100 px-5 dark:border-slate-800/80">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 text-white shadow-md">
-              <span className="font-mono text-base font-black">SJ</span>
-            </div>
+           
             <div>
               <span className="text-base font-black tracking-tight text-slate-900 dark:text-white block leading-none">
                 Shongjog
