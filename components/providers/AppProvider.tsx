@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import { useAppStore } from "@/stores/useAppStore";
 import RoleSwitcherModal from "@/components/layout/RoleSwitcherModal";
@@ -22,7 +22,9 @@ export default function AppProvider({ children }: { children: React.ReactNode })
   return (
     <>
       {children}
-      <RoleSwitcherModal />
+      <Suspense fallback={null}>
+        <RoleSwitcherModal />
+      </Suspense>
       <Toaster
         position="top-right"
         richColors
@@ -32,4 +34,3 @@ export default function AppProvider({ children }: { children: React.ReactNode })
     </>
   );
 }
-
