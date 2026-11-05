@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
@@ -30,6 +30,14 @@ import {
 import { toast } from "sonner";
 
 export default function JobDetailsPage() {
+  return (
+    <Suspense fallback={null}>
+      <JobDetailsContent />
+    </Suspense>
+  );
+}
+
+function JobDetailsContent() {
   const params = useParams();
   const router = useRouter();
   const jobId = params?.id as string;
