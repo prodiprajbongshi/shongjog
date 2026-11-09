@@ -1,21 +1,24 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Toaster } from "sonner";
 import { useAppStore } from "@/stores/useAppStore";
 import RoleSwitcherModal from "@/components/layout/RoleSwitcherModal";
 
 export default function AppProvider({ children }: { children: React.ReactNode }) {
   const { theme } = useAppStore();
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    // Sync dark class on html
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const syncTheme = () => {
+      const isDark = theme === "dark" || (theme === "system" && mediaQuery.matches);
+      document.documentElement.classList.toggle("dark", isDark);
+    };
+
+    syncTheme();
+    if (theme === "system") {
+      mediaQuery.addEventListener("change", syncTheme);
+      return () => mediaQuery.removeEventListener("change", syncTheme);
     }
   }, [theme]);
 
@@ -29,7 +32,7 @@ export default function AppProvider({ children }: { children: React.ReactNode })
         position="top-right"
         richColors
         closeButton
-        theme={mounted ? theme : "system"}
+        theme={theme}
       />
     </>
   );

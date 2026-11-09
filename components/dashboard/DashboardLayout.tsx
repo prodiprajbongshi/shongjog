@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppStore } from "@/stores/useAppStore";
-import { UserRole } from "@/types";
+import { useSystemPrefersDark } from "@/lib/useSystemPrefersDark";
+import type { UserRole } from "@/types";
+import type { LucideIcon } from "lucide-react";
 import {
   Briefcase,
   LayoutDashboard,
@@ -37,7 +39,7 @@ import { toast } from "sonner";
 interface NavItem {
   label: string;
   href: string;
-  icon: any;
+  icon: LucideIcon;
   badge?: string | number;
 }
 
@@ -70,6 +72,8 @@ export default function DashboardLayout({
     savedJobIds,
     interviews,
   } = useAppStore();
+  const systemPrefersDark = useSystemPrefersDark();
+  const isDark = theme === "dark" || (theme === "system" && systemPrefersDark);
 
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [notifDropdownOpen, setNotifDropdownOpen] = useState(false);
@@ -176,9 +180,10 @@ export default function DashboardLayout({
         <div className="flex items-center gap-2">
           <button
             onClick={toggleTheme}
+            aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
             className="rounded-lg p-1.5 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
           >
-            {theme === "dark" ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4" />}
+            {isDark ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4" />}
           </button>
         </div>
       </div>
@@ -306,10 +311,11 @@ export default function DashboardLayout({
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
+              aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
               className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition"
               title="Toggle theme"
             >
-              {theme === "dark" ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4" />}
+              {isDark ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4" />}
             </button>
 
             {/* Notification Dropdown Trigger */}
@@ -411,4 +417,3 @@ export default function DashboardLayout({
     </div>
   );
 }
-

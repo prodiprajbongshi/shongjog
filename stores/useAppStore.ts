@@ -23,7 +23,7 @@ interface AppState {
   // Auth & Role
   currentUser: User;
   currentRole: UserRole;
-  theme: "light" | "dark";
+  theme: "light" | "dark" | "system";
 
   // Data
   seekerProfile: JobSeekerProfile;
@@ -37,7 +37,7 @@ interface AppState {
   setRole: (role: UserRole) => void;
   setCurrentUser: (user: User) => void;
   toggleTheme: () => void;
-  setTheme: (theme: "light" | "dark") => void;
+  setTheme: (theme: "light" | "dark" | "system") => void;
 
   // Profile
   updateSeekerProfile: (profile: Partial<JobSeekerProfile>) => void;
@@ -83,7 +83,7 @@ export const useAppStore = create<AppState>()(
     (set, get) => ({
       currentUser: MOCK_USERS.seeker,
       currentRole: "job_seeker",
-      theme: "light",
+      theme: "system",
 
       seekerProfile: MOCK_SEEKER_PROFILE,
       jobs: MOCK_JOBS,
@@ -101,25 +101,20 @@ export const useAppStore = create<AppState>()(
 
       toggleTheme: () =>
         set((state) => {
-          const next = state.theme === "light" ? "dark" : "light";
-          if (typeof document !== "undefined") {
-            if (next === "dark") {
-              document.documentElement.classList.add("dark");
-            } else {
-              document.documentElement.classList.remove("dark");
-            }
-          }
+          const systemPrefersDark =
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const currentTheme =
+            state.theme === "system"
+              ? systemPrefersDark
+                ? "dark"
+                : "light"
+              : state.theme;
+          const next = currentTheme === "light" ? "dark" : "light";
           return { theme: next };
         }),
 
       setTheme: (theme) => {
-        if (typeof document !== "undefined") {
-          if (theme === "dark") {
-            document.documentElement.classList.add("dark");
-          } else {
-            document.documentElement.classList.remove("dark");
-          }
-        }
         set({ theme });
       },
 
@@ -385,4 +380,3 @@ export const useAppStore = create<AppState>()(
     }
   )
 );
-

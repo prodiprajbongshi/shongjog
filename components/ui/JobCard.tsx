@@ -7,6 +7,7 @@ import { useAppStore } from "@/stores/useAppStore";
 import { StatusBadge } from "./StatusBadge";
 import { ApplyModal } from "./ApplyModal";
 import { RelativeTime } from "./RelativeTime";
+import { Button, buttonStyles } from "./Button";
 import { formatCurrency } from "@/lib/utils";
 import {
   Bookmark,
@@ -56,7 +57,7 @@ export function JobCard({ job, compact = false }: JobCardProps) {
 
   return (
     <>
-      <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm shadow-slate-950/[0.03] transition-all duration-200 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-xl hover:shadow-indigo-950/[0.07] sm:p-6 dark:border-slate-800 dark:bg-slate-900/90 dark:hover:border-indigo-800/80">
+      <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-950/[0.03] transition duration-200 hover:border-indigo-300 hover:shadow-md sm:p-6 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-indigo-800/80 motion-reduce:transition-none">
         <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-indigo-400/70 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-start gap-3.5">
@@ -94,7 +95,7 @@ export function JobCard({ job, compact = false }: JobCardProps) {
             aria-label={isSaved ? `Remove ${job.title} from saved jobs` : `Save ${job.title}`}
             aria-pressed={isSaved}
             title={isSaved ? "Remove from saved" : "Save this job"}
-            className={`shrink-0 rounded-xl border p-2.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+            className={`shrink-0 rounded-xl border p-2.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 dark:focus-visible:ring-indigo-400 dark:focus-visible:ring-offset-slate-900 motion-reduce:transition-none ${
               isSaved
                 ? "border-indigo-100 bg-indigo-50 text-indigo-600 dark:border-indigo-900/70 dark:bg-indigo-950/60 dark:text-indigo-400"
                 : "border-transparent text-slate-400 hover:border-slate-200 hover:bg-slate-50 hover:text-slate-700 dark:hover:border-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
@@ -156,7 +157,11 @@ export function JobCard({ job, compact = false }: JobCardProps) {
           <div className="flex items-center gap-2 self-stretch sm:self-auto">
             <Link
               href={`/jobs/${job.id}`}
-              className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 sm:flex-none dark:text-slate-300 dark:hover:bg-slate-800"
+              className={buttonStyles({
+                variant: "ghost",
+                size: "sm",
+                className: "flex-1 sm:flex-none",
+              })}
             >
               Details <ArrowUpRight className="h-3 w-3" />
             </Link>
@@ -166,13 +171,14 @@ export function JobCard({ job, compact = false }: JobCardProps) {
                 <CheckCircle className="h-3 w-3" /> Applied
               </span>
             ) : (
-              <button
+              <Button
                 type="button"
                 onClick={() => setIsApplyModalOpen(true)}
-                className="inline-flex flex-1 items-center justify-center gap-1 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-semibold text-white shadow-sm shadow-indigo-600/20 transition hover:-translate-y-0.5 hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:translate-y-0 sm:flex-none dark:focus-visible:ring-offset-slate-900"
+                size="sm"
+                className="flex-1 sm:flex-none"
               >
                 Quick Apply
-              </button>
+              </Button>
             )}
           </div>
         </div>
