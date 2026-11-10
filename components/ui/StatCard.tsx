@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { LucideIcon, TrendingUp, TrendingDown } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 interface StatCardProps {
   title: string;
@@ -28,17 +28,17 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition hover:border-slate-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700",
+        "relative overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700",
         className
       )}
     >
       <div className="flex items-center justify-between">
-        <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
           {title}
         </p>
         <div
           className={cn(
-            "flex h-10 w-10 items-center justify-center rounded-xl transition",
+            "flex h-9 w-9 items-center justify-center rounded-lg",
             iconBg,
             iconColor
           )}
@@ -48,20 +48,18 @@ export function StatCard({
       </div>
 
       <div className="mt-3 flex items-baseline gap-2">
-        <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <span className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
           {value}
         </span>
         {change && (
           <span
             className={cn(
-              "inline-flex items-center text-xs font-semibold",
+              "text-xs font-medium",
               trend === "up" && "text-emerald-600 dark:text-emerald-400",
               trend === "down" && "text-rose-600 dark:text-rose-400",
               trend === "neutral" && "text-slate-500 dark:text-slate-400"
             )}
           >
-            {trend === "up" && <TrendingUp className="mr-0.5 h-3 w-3" />}
-            {trend === "down" && <TrendingDown className="mr-0.5 h-3 w-3" />}
             {change}
           </span>
         )}
@@ -75,4 +73,3 @@ export function StatCard({
     </div>
   );
 }
-

@@ -30,9 +30,7 @@ import {
   LogOut,
   Menu,
   X,
- 
   Sparkles,
- 
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -84,8 +82,16 @@ export default function DashboardLayout({
   // Define sidebar navigation items based on current role
   const seekerNavItems: NavItem[] = [
     { label: "Overview", href: "/dashboard/job-seeker", icon: LayoutDashboard },
-    { label: "Profile Builder", href: "/dashboard/job-seeker/profile", icon: User },
-    { label: "Resume & ATS", href: "/dashboard/job-seeker/resume", icon: FileText },
+    {
+      label: "Profile Builder",
+      href: "/dashboard/job-seeker/profile",
+      icon: User,
+    },
+    {
+      label: "Resume & ATS",
+      href: "/dashboard/job-seeker/resume",
+      icon: FileText,
+    },
     {
       label: "Applications",
       href: "/dashboard/job-seeker/applications",
@@ -102,56 +108,121 @@ export default function DashboardLayout({
       label: "Interviews",
       href: "/dashboard/job-seeker/interviews",
       icon: Calendar,
-      badge: interviews.filter((i) => i.status === "scheduled").length || undefined,
+      badge:
+        interviews.filter((i) => i.status === "scheduled").length || undefined,
     },
-    { label: "AI Interview Prep", href: "/dashboard/job-seeker/interview-prep", icon: Sparkles },
-    { label: "Messages", href: "/dashboard/job-seeker/messages", icon: MessageSquare },
-    { label: "Settings", href: "/dashboard/job-seeker/settings", icon: Settings },
+    {
+      label: "AI Interview Prep",
+      href: "/dashboard/job-seeker/interview-prep",
+      icon: Sparkles,
+    },
+    {
+      label: "Messages",
+      href: "/dashboard/job-seeker/messages",
+      icon: MessageSquare,
+    },
+    {
+      label: "Settings",
+      href: "/dashboard/job-seeker/settings",
+      icon: Settings,
+    },
   ];
 
   const recruiterNavItems: NavItem[] = [
     { label: "Overview", href: "/dashboard/recruiter", icon: LayoutDashboard },
-    { label: "Manage Jobs", href: "/dashboard/recruiter/jobs", icon: Briefcase },
-    { label: "Post New Job", href: "/dashboard/recruiter/jobs/create", icon: PlusCircle },
+    {
+      label: "Manage Jobs",
+      href: "/dashboard/recruiter/jobs",
+      icon: Briefcase,
+    },
+    {
+      label: "Post New Job",
+      href: "/dashboard/recruiter/jobs/create",
+      icon: PlusCircle,
+    },
     {
       label: "Applicant Directory",
       href: "/dashboard/recruiter/applicants",
       icon: Users,
       badge: applications.length,
     },
-    { label: "Hiring Pipeline", href: "/dashboard/recruiter/pipeline", icon: GitPullRequest },
+    {
+      label: "Hiring Pipeline",
+      href: "/dashboard/recruiter/pipeline",
+      icon: GitPullRequest,
+    },
     {
       label: "Interviews",
       href: "/dashboard/recruiter/interviews",
       icon: Calendar,
       badge: interviews.length,
     },
-    { label: "Company Profile", href: "/dashboard/recruiter/company", icon: Building },
-    { label: "Hiring Analytics", href: "/dashboard/recruiter/analytics", icon: BarChart3 },
-    { label: "Settings", href: "/dashboard/recruiter/settings", icon: Settings },
+    {
+      label: "Company Profile",
+      href: "/dashboard/recruiter/company",
+      icon: Building,
+    },
+    {
+      label: "Hiring Analytics",
+      href: "/dashboard/recruiter/analytics",
+      icon: BarChart3,
+    },
+    {
+      label: "Settings",
+      href: "/dashboard/recruiter/settings",
+      icon: Settings,
+    },
   ];
 
   const adminNavItems: NavItem[] = [
-    { label: "System Overview", href: "/dashboard/admin", icon: LayoutDashboard },
+    {
+      label: "System Overview",
+      href: "/dashboard/admin",
+      icon: LayoutDashboard,
+    },
     { label: "Manage Users", href: "/dashboard/admin/users", icon: Users },
-    { label: "Company Verification", href: "/dashboard/admin/companies", icon: Building },
+    {
+      label: "Company Verification",
+      href: "/dashboard/admin/companies",
+      icon: Building,
+    },
     { label: "Job Approvals", href: "/dashboard/admin/jobs", icon: FileCheck },
-    { label: "Categories & Skills", href: "/dashboard/admin/categories", icon: Layers },
-    { label: "Platform Analytics", href: "/dashboard/admin/analytics", icon: BarChart3 },
+    {
+      label: "Categories & Skills",
+      href: "/dashboard/admin/categories",
+      icon: Layers,
+    },
+    {
+      label: "Platform Analytics",
+      href: "/dashboard/admin/analytics",
+      icon: BarChart3,
+    },
     { label: "Reports & Logs", href: "/dashboard/admin/reports", icon: Shield },
-    { label: "Platform Settings", href: "/dashboard/admin/settings", icon: Settings },
+    {
+      label: "Platform Settings",
+      href: "/dashboard/admin/settings",
+      icon: Settings,
+    },
   ];
 
   const navItems =
     role === "job_seeker"
       ? seekerNavItems
       : role === "recruiter"
-      ? recruiterNavItems
-      : adminNavItems;
+        ? recruiterNavItems
+        : adminNavItems;
 
   const roleLabels = {
-    job_seeker: { name: "Job Seeker Portal", badge: "Candidate Workspace", color: "indigo" },
-    recruiter: { name: "Recruiter ATS", badge: "Employer Workspace", color: "violet" },
+    job_seeker: {
+      name: "Job Seeker Portal",
+      badge: "Candidate Workspace",
+      color: "indigo",
+    },
+    recruiter: {
+      name: "Recruiter ATS",
+      badge: "Employer Workspace",
+      color: "violet",
+    },
     admin: { name: "Admin Command", badge: "Platform Control", color: "amber" },
   };
 
@@ -169,7 +240,11 @@ export default function DashboardLayout({
             onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
             className="rounded-lg p-1.5 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
           >
-            {mobileSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileSidebarOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
           <Link href="/" className="flex items-center gap-2">
             <span className="font-bold text-slate-900 dark:text-white text-sm">
@@ -183,7 +258,11 @@ export default function DashboardLayout({
             aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
             className="rounded-lg p-1.5 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
           >
-            {isDark ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4" />}
+            {isDark ? (
+              <Sun className="h-4 w-4 text-amber-400" />
+            ) : (
+              <Moon className="h-4 w-4" />
+            )}
           </button>
         </div>
       </div>
@@ -197,7 +276,6 @@ export default function DashboardLayout({
         {/* Brand */}
         <div className="flex h-16 items-center justify-between border-b border-slate-100 px-5 dark:border-slate-800/80">
           <Link href="/" className="flex items-center gap-2.5">
-           
             <div>
               <span className="text-base font-black tracking-tight text-slate-900 dark:text-white block leading-none">
                 Shongjog
@@ -315,7 +393,11 @@ export default function DashboardLayout({
               className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 transition"
               title="Toggle theme"
             >
-              {isDark ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4" />}
+              {isDark ? (
+                <Sun className="h-4 w-4 text-amber-400" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
             </button>
 
             {/* Notification Dropdown Trigger */}
@@ -393,25 +475,31 @@ export default function DashboardLayout({
 
         {/* Dashboard Content Container */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          {(title || actions) && (
-            <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                {title && (
-                  <h1 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white">
-                    {title}
-                  </h1>
-                )}
-                {subtitle && (
-                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                    {subtitle}
-                  </p>
+          <div className="mx-auto w-full max-w-7xl">
+            {(title || actions) && (
+              <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                <div>
+                  {title && (
+                    <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white sm:text-2xl">
+                      {title}
+                    </h1>
+                  )}
+
+                  {subtitle && (
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                      {subtitle}
+                    </p>
+                  )}
+                </div>
+
+                {actions && (
+                  <div className="flex items-center gap-2">{actions}</div>
                 )}
               </div>
-              {actions && <div className="flex items-center gap-2">{actions}</div>}
-            </div>
-          )}
+            )}
 
-          {children}
+            {children}
+          </div>
         </main>
       </div>
     </div>

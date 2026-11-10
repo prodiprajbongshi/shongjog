@@ -4,23 +4,19 @@ import React from "react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { StatCard } from "@/components/ui/StatCard";
 import {
-  BarChart3,
   Clock,
   CheckCircle2,
   Users,
-  TrendingUp,
-  Award,
   Zap,
 } from "lucide-react";
 import {
   AreaChart,
   Area,
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 
 const monthlyVolume = [
@@ -39,49 +35,55 @@ const sourceDistribution = [
   { source: "Employee Referrals", share: 12 },
 ];
 
+const sourceColors = [
+  "bg-violet-500",
+  "bg-blue-500",
+  "bg-amber-500",
+  "bg-emerald-500",
+] as const;
+
 export default function RecruiterAnalyticsPage() {
   return (
     <DashboardLayout
       role="recruiter"
-      title="Hiring & Talent Analytics"
-      subtitle="Comprehensive metrics on candidate acquisition, pipeline velocity, and team time-to-hire."
+      title="How hiring is going"
+      subtitle="A clearer picture of your applicants, hiring pace, and where great candidates are finding you."
     >
-      {/* 4 KPIs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
-          title="Avg Time-to-Hire"
-          value="14.2 Days"
-          change="-3.5 days faster"
+          title="Time to hire"
+          value="14.2 days"
+          change="3.5 days faster"
           trend="up"
-          subtitle="From application to signed offer"
+          subtitle="From application to accepted offer"
           icon={Clock}
           iconBg="bg-violet-50 dark:bg-violet-950/60"
           iconColor="text-violet-600 dark:text-violet-400"
         />
         <StatCard
-          title="Offer Acceptance Rate"
+          title="Offers accepted"
           value="91.4%"
-          change="+4.2% QoQ"
+          change="4.2% higher this quarter"
           trend="up"
-          subtitle="Top engineering candidates"
+          subtitle="Candidates saying yes"
           icon={CheckCircle2}
           iconBg="bg-emerald-50 dark:bg-emerald-950/60"
           iconColor="text-emerald-600 dark:text-emerald-400"
         />
         <StatCard
-          title="Total Pipeline Volume"
+          title="Candidates in pipeline"
           value="434"
-          change="+24% YoY"
+          change="24% more than last year"
           trend="up"
-          subtitle="Candidates screened this quarter"
+          subtitle="Screened this quarter"
           icon={Users}
           iconBg="bg-indigo-50 dark:bg-indigo-950/60"
           iconColor="text-indigo-600 dark:text-indigo-400"
         />
         <StatCard
-          title="AI Match Accuracy"
+          title="Skills match"
           value="94.8%"
-          change="High retention"
+          change="Strong match"
           trend="up"
           subtitle="Passed technical screens"
           icon={Zap}
@@ -90,71 +92,111 @@ export default function RecruiterAnalyticsPage() {
         />
       </div>
 
-      {/* Main Grid: Application Volume Over Time */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
-        <div className="lg:col-span-8 rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-          <div className="flex items-center justify-between mb-4">
+      <div className="mb-8 grid grid-cols-1 gap-5 lg:grid-cols-12">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-6 lg:col-span-8">
+          <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                Application Growth vs Successful Hires
+              <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+                Applications and hires over time
               </h3>
-              <p className="text-xs text-slate-500">
-                Monthly trajectory across all open engineering requisitions
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                A month-by-month view of candidates coming in and people joining.
               </p>
+            </div>
+            <div className="flex items-center gap-4 text-xs text-slate-600 dark:text-slate-400">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-violet-600" />
+                Applications
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                Hires
+              </span>
             </div>
           </div>
 
-          <div className="h-64 w-full">
+          <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={monthlyVolume} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <AreaChart data={monthlyVolume} margin={{ top: 10, right: 4, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="volGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#7c3aed" stopOpacity={0.3} />
                     <stop offset="95%" stopColor="#7c3aed" stopOpacity={0} />
                   </linearGradient>
+                  <linearGradient id="hireGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.24} />
+                    <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                  </linearGradient>
                 </defs>
-                <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
+                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" vertical={false} />
+                <XAxis dataKey="month" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis yAxisId="applications" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} />
+                <YAxis yAxisId="hires" orientation="right" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} allowDecimals={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#0f172a",
-                    border: "none",
-                    borderRadius: "12px",
-                    color: "#fff",
-                    fontSize: "12px",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "10px",
+                    color: "#0f172a",
+                    fontSize: "13px",
                   }}
                 />
                 <Area
+                  yAxisId="applications"
                   type="monotone"
                   dataKey="applications"
+                  name="Applications"
                   stroke="#7c3aed"
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#volGrad)"
+                />
+                <Area
+                  yAxisId="hires"
+                  type="monotone"
+                  dataKey="hires"
+                  name="Hires"
+                  stroke="#10b981"
+                  strokeWidth={2}
+                  fillOpacity={1}
+                  fill="url(#hireGrad)"
                 />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Source Breakdown (4 cols) */}
-        <div className="lg:col-span-4 rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-xs dark:border-slate-800 dark:bg-slate-900 space-y-4">
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
-            Candidate Influx Channel
-          </h3>
-          <p className="text-xs text-slate-500">
-            Breakdown of primary acquisition channels
-          </p>
+        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-6 lg:col-span-4">
+          <div>
+            <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+              Where applicants find you
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Share of applicants by source.
+            </p>
+          </div>
 
-          <div className="space-y-3 pt-2">
-            {sourceDistribution.map((s) => (
+          <div className="space-y-5 pt-1">
+            {sourceDistribution.map((s, index) => (
               <div key={s.source}>
-                <div className="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <div className="mb-2 flex justify-between gap-3 text-sm text-slate-700 dark:text-slate-300">
                   <span>{s.source}</span>
-                  <span className="font-bold text-violet-600 dark:text-violet-400">{s.share}%</span>
+                  <span className="shrink-0 font-semibold text-slate-900 dark:text-white">
+                    {s.share}%
+                  </span>
                 </div>
-                <div className="h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                  <div className="h-full bg-violet-600 rounded-full" style={{ width: `${s.share}%` }} />
+                <div
+                  className="h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"
+                  role="progressbar"
+                  aria-label={`${s.source} applicants`}
+                  aria-valuenow={s.share}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
+                  <div
+                    className={`h-full rounded-full ${sourceColors[index]}`}
+                    style={{ width: `${s.share}%` }}
+                  />
                 </div>
               </div>
             ))}
@@ -164,4 +206,3 @@ export default function RecruiterAnalyticsPage() {
     </DashboardLayout>
   );
 }
-

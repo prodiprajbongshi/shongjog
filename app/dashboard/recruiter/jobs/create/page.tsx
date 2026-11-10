@@ -2,23 +2,13 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { Modal } from "@/components/ui/Modal";
 import { useAppStore } from "@/stores/useAppStore";
 import { JOB_CATEGORIES, JOB_TYPES, WORK_MODES, EXPERIENCE_LEVELS } from "@/lib/constants";
 import {
   Sparkles,
-  Save,
-  Eye,
   Send,
-  Plus,
-  Trash2,
-  DollarSign,
-  Briefcase,
-  Layers,
-  ArrowLeft,
-  CheckCircle2,
   Zap,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -143,29 +133,25 @@ export default function CreateJobPage() {
   return (
     <DashboardLayout
       role="recruiter"
-      title="Create New Job Requisition"
-      subtitle="Define role specifications, qualifications, and publish to tech candidates."
-      actions={
-        <button
-          type="button"
-          onClick={() => setIsAiModalOpen(true)}
-          className="flex items-center gap-1.5 rounded-xl border border-violet-200 bg-violet-50 px-3.5 py-2 text-xs font-semibold text-violet-700 hover:bg-violet-100 dark:border-violet-850 dark:bg-violet-950/60 dark:text-violet-300 transition"
-        >
-          <Sparkles className="h-4 w-4 text-violet-600 dark:text-violet-400" />
-          <span>AI Description Generator</span>
-        </button>
-      }
+      title="Create a job opening"
+      subtitle="Tell candidates about the role, the team, and what you’re looking for."
+      
     >
-      <div className="max-w-4xl space-y-8">
+      <div className="mx-auto max-w-5xl space-y-5">
         {/* Basic Information */}
-        <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-xs dark:border-slate-800 dark:bg-slate-900 space-y-4">
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
-            Core Position Details
-          </h3>
+        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7">
+          <div>
+            <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+              The role
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Start with the essentials so the right people can find this opening.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Job Title *
               </label>
               <input
@@ -173,19 +159,19 @@ export default function CreateJobPage() {
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. Senior Frontend Architect"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 focus:border-violet-500 focus:bg-white focus:outline-none dark:border-slate-800 dark:bg-slate-800/60 dark:text-white"
+                placeholder="e.g. Senior Frontend Engineer"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-violet-700 dark:focus:ring-violet-950"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Job Category
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-xs text-slate-800 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-200"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:border-violet-700 dark:focus:ring-violet-950"
               >
                 {JOB_CATEGORIES.map((c) => (
                   <option key={c.id} value={c.name}>
@@ -196,7 +182,7 @@ export default function CreateJobPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Department / Team
               </label>
               <input
@@ -204,18 +190,18 @@ export default function CreateJobPage() {
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
                 placeholder="e.g. Core Infrastructure"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 dark:border-slate-800 dark:bg-slate-800/60 dark:text-white"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-violet-700 dark:focus:ring-violet-950"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Work Mode
               </label>
               <select
                 value={workMode}
                 onChange={(e) => setWorkMode(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-xs text-slate-800 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-200"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:border-violet-700 dark:focus:ring-violet-950"
               >
                 {WORK_MODES.filter((w) => w.value !== "all").map((w) => (
                   <option key={w.value} value={w.value}>
@@ -226,13 +212,13 @@ export default function CreateJobPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Job Type
               </label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-xs text-slate-800 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-200"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:border-violet-700 dark:focus:ring-violet-950"
               >
                 {JOB_TYPES.filter((t) => t.value !== "all").map((t) => (
                   <option key={t.value} value={t.value}>
@@ -243,13 +229,13 @@ export default function CreateJobPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Experience Level
               </label>
               <select
                 value={experienceLevel}
                 onChange={(e) => setExperienceLevel(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-xs text-slate-800 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-200"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:focus:border-violet-700 dark:focus:ring-violet-950"
               >
                 {EXPERIENCE_LEVELS.filter((e) => e.value !== "all").map((e) => (
                   <option key={e.value} value={e.value}>
@@ -260,7 +246,7 @@ export default function CreateJobPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Location Details
               </label>
               <input
@@ -268,67 +254,77 @@ export default function CreateJobPage() {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="e.g. San Francisco, CA (or Remote US)"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 dark:border-slate-800 dark:bg-slate-800/60 dark:text-white"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-violet-700 dark:focus:ring-violet-950"
               />
             </div>
           </div>
         </div>
 
         {/* Compensation & Deadlines */}
-        <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-xs dark:border-slate-800 dark:bg-slate-900 space-y-4">
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
-            Salary Band & Requisition Parameters
-          </h3>
+        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7">
+          <div>
+            <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+              Pay and timing
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              A clear range and deadline help candidates decide if the role is right for them.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Salary Min ($ USD)
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                Minimum salary (USD)
               </label>
               <input
                 type="number"
                 value={salaryMin}
                 onChange={(e) => setSalaryMin(Number(e.target.value))}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 dark:border-slate-800 dark:bg-slate-800/60 dark:text-white"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-violet-700 dark:focus:ring-violet-950"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Salary Max ($ USD)
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                Maximum salary (USD)
               </label>
               <input
                 type="number"
                 value={salaryMax}
                 onChange={(e) => setSalaryMax(Number(e.target.value))}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 dark:border-slate-800 dark:bg-slate-800/60 dark:text-white"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-violet-700 dark:focus:ring-violet-950"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Application Deadline
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                Apply by
               </label>
               <input
                 type="date"
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-900 dark:border-slate-800 dark:bg-slate-800/60 dark:text-white"
+                className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-violet-700 dark:focus:ring-violet-950"
               />
             </div>
           </div>
         </div>
 
         {/* Job Description & AI Assistant */}
-        <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-xs dark:border-slate-800 dark:bg-slate-900 space-y-4">
+        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7">
           <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-slate-900 dark:text-white">
-              Job Description & Overview
-            </h3>
+            <div>
+              <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+                A little about the work
+              </h3>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                Give candidates a genuine feel for what they’ll do and who they’ll work with.
+              </p>
+            </div>
             <button
               type="button"
               onClick={() => setIsAiModalOpen(true)}
-              className="text-xs font-semibold text-violet-600 hover:underline flex items-center gap-1 dark:text-violet-400"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-medium text-violet-700 transition-colors  bg-violet-800 dark:text-violet-300 dark:hover:bg-violet-700 cursor-pointer"
             >
-              <Sparkles className="h-3.5 w-3.5" /> AI Enhance
+              <Sparkles className="h-4 w-4" /> Help me write
             </button>
           </div>
 
@@ -336,26 +332,34 @@ export default function CreateJobPage() {
             rows={4}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-900 focus:border-violet-500 focus:bg-white focus:outline-none dark:border-slate-800 dark:bg-slate-800/60 dark:text-white leading-relaxed"
+            aria-label="Job description"
+            placeholder="What will this person work on? What’s interesting about the team or the problems they’ll solve?"
+            className="w-full rounded-lg border border-slate-200 bg-white p-3.5 text-sm leading-relaxed text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-violet-700 dark:focus:ring-violet-950"
           />
         </div>
 
         {/* Required Skills */}
-        <div className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 shadow-xs dark:border-slate-800 dark:bg-slate-900 space-y-4">
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
-            Required Technical Proficiencies
-          </h3>
+        <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7">
+          <div>
+            <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+              Skills that matter
+            </h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Add the skills someone will actually use in this role.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-2 pt-1">
             {skills.map((s) => (
               <span
                 key={s}
-                className="flex items-center gap-1.5 rounded-xl border border-violet-200 bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-700 dark:border-violet-900/60 dark:bg-violet-950/60 dark:text-violet-300"
+                className="flex items-center gap-1.5 rounded-full border border-violet-200 bg-violet-50 px-3 py-1.5 text-sm font-medium text-violet-700 dark:border-violet-900/60 dark:bg-violet-950/60 dark:text-violet-300"
               >
                 <span>{s}</span>
                 <button
                   type="button"
                   onClick={() => handleRemoveSkill(s)}
-                  className="hover:text-rose-600"
+                  aria-label={`Remove ${s}`}
+                  className="hover:text-rose-600 cursor-pointer"
                 >
                   &times;
                 </button>
@@ -363,18 +367,19 @@ export default function CreateJobPage() {
             ))}
           </div>
 
-          <div className="flex gap-2 max-w-sm pt-2">
+          <div className="flex max-w-sm gap-2 pt-2">
             <input
               type="text"
               placeholder="Add skill (e.g. Terraform, Next.js)..."
               value={newSkill}
               onChange={(e) => setNewSkill(e.target.value)}
-              className="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs focus:outline-none dark:border-slate-800 dark:bg-slate-800/60 dark:text-white"
+              aria-label="Add a skill"
+              className="min-w-0 flex-1 rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-violet-700 dark:focus:ring-violet-950"
             />
             <button
               type="button"
               onClick={handleAddSkill}
-              className="rounded-xl bg-slate-900 px-4 py-2 text-xs font-semibold text-white dark:bg-slate-100 dark:text-slate-900"
+              className="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white cursor-pointer"
             >
               Add
             </button>
@@ -382,21 +387,21 @@ export default function CreateJobPage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200/80 dark:border-slate-800">
+        <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-end">
           <button
             type="button"
             onClick={() => handleSubmit("draft")}
-            className="rounded-xl border border-slate-200 px-5 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+            className="rounded-lg border border-slate-200 px-5 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
           >
             Save as Draft
           </button>
           <button
             type="button"
             onClick={() => handleSubmit("active")}
-            className="flex items-center gap-2 rounded-xl bg-violet-600 px-6 py-2.5 text-xs font-bold text-white shadow-md shadow-violet-600/20 hover:bg-violet-700 active:scale-95 transition"
+            className="flex items-center justify-center gap-2 rounded-lg bg-violet-600 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-violet-700 cursor-pointer"
           >
             <Send className="h-3.5 w-3.5" />
-            <span>Publish Job Requisition</span>
+            <span>Publish job</span>
           </button>
         </div>
       </div>
@@ -408,30 +413,30 @@ export default function CreateJobPage() {
         title={
           <div className="flex items-center gap-2 text-violet-600 dark:text-violet-400">
             <Sparkles className="h-5 w-5" />
-            <span>AI Job Description Generator</span>
+            <span>Writing assistant</span>
           </div>
         }
-        description="Automatically craft an enterprise-grade job specification, responsibilities, and skill requirements based on your role title."
+        description="Share a few details about the role and get a first draft you can edit before publishing."
       >
         <div className="space-y-4 pt-2">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-              Position Title & Context
+            <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+              Job title
             </label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-xs text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              className="w-full rounded-lg border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-violet-700 dark:focus:ring-violet-950"
             />
           </div>
 
-          <div className="rounded-xl bg-violet-50 p-3 text-xs text-violet-900 dark:bg-violet-950/40 dark:text-violet-200">
-            <p className="font-semibold mb-1">AI Assistant will generate:</p>
-            <ul className="list-disc list-inside space-y-0.5 text-[11px] text-violet-800/90 dark:text-violet-300/90">
-              <li>High-converting executive summary for candidate attraction</li>
-              <li>4 concrete engineering responsibilities aligned with the role</li>
-              <li>Required technical competencies and stack keywords</li>
+          <div className="rounded-lg bg-violet-50 p-4 text-sm text-violet-900 dark:bg-violet-950/40 dark:text-violet-200">
+            <p className="mb-2 font-medium">Your draft will include</p>
+            <ul className="list-inside list-disc space-y-1 text-violet-800/90 dark:text-violet-300/90">
+              <li>A role introduction candidates can understand</li>
+              <li>Responsibilities tailored to the position</li>
+              <li>Relevant experience and skills to look for</li>
             </ul>
           </div>
 
@@ -439,7 +444,7 @@ export default function CreateJobPage() {
             <button
               type="button"
               onClick={() => setIsAiModalOpen(false)}
-              className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300"
+              className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
             >
               Cancel
             </button>
@@ -447,10 +452,10 @@ export default function CreateJobPage() {
               type="button"
               onClick={handleAiGenerate}
               disabled={aiGenerating}
-              className="flex items-center gap-2 rounded-xl bg-violet-600 px-5 py-2 text-xs font-bold text-white shadow-xs hover:bg-violet-700 disabled:opacity-70"
+              className="flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-70"
             >
               <Zap className="h-3.5 w-3.5" />
-              <span>{aiGenerating ? "Generating Specs..." : "Generate & Apply"}</span>
+              <span>{aiGenerating ? "Putting a draft together..." : "Create a draft"}</span>
             </button>
           </div>
         </div>
@@ -458,4 +463,3 @@ export default function CreateJobPage() {
     </DashboardLayout>
   );
 }
-

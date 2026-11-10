@@ -266,7 +266,7 @@ export default function RecruiterDashboard() {
                   <td className="py-3 text-right">
                     <Link
                       href="/dashboard/recruiter/applicants"
-                      className="rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200"
+                      className="rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-600 dark:text-slate-200"
                     >
                       Review
                     </Link>
