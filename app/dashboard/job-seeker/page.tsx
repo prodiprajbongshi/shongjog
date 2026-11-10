@@ -34,13 +34,13 @@ const monthFmt = new Intl.DateTimeFormat("en-US", { month: "short" });
 
 // Map each application status to a color family for the pipeline funnel
 const STATUS_COLORS: Record<string, string> = {
-  applied:    "bg-blue-500",
-  screening:  "bg-indigo-500",
-  shortlisted:"bg-purple-500",
-  interview:  "bg-amber-500",
-  offer:      "bg-emerald-500",
-  hired:      "bg-teal-500",
-  rejected:   "bg-rose-400",
+  applied: "bg-blue-500",
+  screening: "bg-indigo-500",
+  shortlisted: "bg-purple-500",
+  interview: "bg-amber-500",
+  offer: "bg-emerald-500",
+  hired: "bg-teal-500",
+  rejected: "bg-rose-400",
 };
 
 // A tiny gradient chip used behind metric icons
@@ -55,7 +55,7 @@ export default function JobSeekerDashboard() {
   const { applications, savedJobIds, interviews, seekerProfile, jobs } = useAppStore();
 
   // Break down applications into the states we care about for the overview
-  const activeApplications     = applications.filter((a) => a.status !== "rejected");
+  const activeApplications = applications.filter((a) => a.status !== "rejected");
   const inProgressApplications = applications.filter((a) =>
     ["screening", "shortlisted", "interview"].includes(a.status)
   );
@@ -84,50 +84,50 @@ export default function JobSeekerDashboard() {
 
   const metrics = [
     {
-      label:    "Total Applied",
-      value:    applications.length,
-      detail:   `${activeApplications.length} still active`,
-      icon:     BriefcaseBusiness,
+      label: "Total Applied",
+      value: applications.length,
+      detail: `${activeApplications.length} still active`,
+      icon: BriefcaseBusiness,
       gradient: METRIC_GRADIENTS[0],
-      trend:    "+3 this week",
-      trendUp:  true,
+      trend: "+3 this week",
+      trendUp: true,
     },
     {
-      label:    "In Review",
-      value:    inProgressApplications.length,
-      detail:   "Employers looking",
-      icon:     Clock3,
+      label: "In Review",
+      value: inProgressApplications.length,
+      detail: "Employers looking",
+      icon: Clock3,
       gradient: METRIC_GRADIENTS[1],
-      trend:    "Being screened",
-      trendUp:  null,
+      trend: "Being screened",
+      trendUp: null,
     },
     {
-      label:    "Interviews",
-      value:    scheduledInterviews.length,
-      detail:   "Scheduled rounds",
-      icon:     CalendarDays,
+      label: "Interviews",
+      value: scheduledInterviews.length,
+      detail: "Scheduled rounds",
+      icon: CalendarDays,
       gradient: METRIC_GRADIENTS[2],
-      trend:    scheduledInterviews.length > 0 ? "Next up soon" : "Nothing yet",
-      trendUp:  scheduledInterviews.length > 0,
+      trend: scheduledInterviews.length > 0 ? "Next up soon" : "Nothing yet",
+      trendUp: scheduledInterviews.length > 0,
     },
     {
-      label:    "Saved Jobs",
-      value:    savedJobIds.length,
-      detail:   "Waiting for you",
-      icon:     Bookmark,
+      label: "Saved Jobs",
+      value: savedJobIds.length,
+      detail: "Waiting for you",
+      icon: Bookmark,
       gradient: METRIC_GRADIENTS[3],
-      trend:    "Revisit anytime",
-      trendUp:  null,
+      trend: "Revisit anytime",
+      trendUp: null,
     },
   ];
 
   // Pipeline counts for the funnel visual — only stages we want to show
   const pipelineStages = [
-    { label: "Applied",     key: "applied",     icon: FileText },
-    { label: "Screening",   key: "screening",   icon: Search },
+    { label: "Applied", key: "applied", icon: FileText },
+    { label: "Screening", key: "screening", icon: Search },
     { label: "Shortlisted", key: "shortlisted", icon: Star },
-    { label: "Interview",   key: "interview",   icon: CalendarDays },
-    { label: "Offer",       key: "offer",       icon: Trophy },
+    { label: "Interview", key: "interview", icon: CalendarDays },
+    { label: "Offer", key: "offer", icon: Trophy },
   ];
   const pipelineData = pipelineStages.map((s) => ({
     ...s,
@@ -151,58 +151,63 @@ export default function JobSeekerDashboard() {
       }
     >
 
-      {/* ── Stat Cards ──────────────────────────────────────────────── */}
+      {/* ── Stat Cards  */}
       <section
         aria-label="Job search overview"
         className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4"
       >
         {metrics.map(({ label, value, detail, icon: Icon, gradient, trend, trendUp }) => (
+
           <div
             key={label}
-            className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-4 transition hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+            className="group flex items-center gap-3.5 rounded-2xl border border-slate-200/80 bg-white p-4 transition-all duration-200 hover:border-slate-300 hover:shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
           >
-            {/* Soft gradient blob in the corner for personality */}
+            {/* Icon */}
             <div
               className={cn(
-                "absolute -right-4 -top-4 h-16 w-16 rounded-full bg-gradient-to-br opacity-10 blur-xl transition group-hover:opacity-20",
+                "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm",
                 gradient
               )}
-            />
-            <div className="flex items-start justify-between">
-              <span
-                className={cn(
-                  "flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm",
-                  gradient
-                )}
-              >
-                <Icon className="h-4 w-4" />
-              </span>
-              {trendUp !== null && (
-                <span
-                  className={cn(
-                    "flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-semibold",
-                    trendUp
-                      ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400"
-                      : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"
-                  )}
-                >
-                  {trendUp && <TrendingUp className="h-2.5 w-2.5" />}
-                  {trend}
-                </span>
-              )}
+            >
+              <Icon className="h-5 w-5" />
             </div>
-            <p className="mt-3 text-3xl font-black tracking-tight text-slate-900 dark:text-white">
-              {value}
-            </p>
-            <p className="mt-0.5 text-xs font-semibold text-slate-700 dark:text-slate-200">
-              {label}
-            </p>
-            <p className="mt-0.5 text-[11px] text-slate-400 dark:text-slate-500">{detail}</p>
+
+            {/* Information */}
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                  {label}
+                </p>
+
+                {trendUp !== null && (
+                  <span
+                    className={cn(
+                      "flex shrink-0 items-center gap-1 text-[10px] font-semibold",
+                      trendUp
+                        ? "text-emerald-600 dark:text-emerald-400"
+                        : "text-slate-500 dark:text-slate-400"
+                    )}
+                  >
+                    {trendUp && <TrendingUp className="h-3 w-3" />}
+                    {trend}
+                  </span>
+                )}
+              </div>
+
+              <p className="mt-0.5 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                {value}
+              </p>
+
+              <p className="mt-0.5 truncate text-[11px] text-slate-400 dark:text-slate-500">
+                {detail}
+              </p>
+            </div>
           </div>
+
         ))}
       </section>
 
-      {/* ── Main two-column grid ─────────────────────────────────────── */}
+      {/* ── Main two-column grid  */}
       <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-5">
 
         {/* Recent Applications — 3-of-5 columns */}
@@ -364,7 +369,7 @@ export default function JobSeekerDashboard() {
         </section>
       </div>
 
-      {/* ── Second row: Profile + Saved Jobs ────────────────────────── */}
+      {/* ── Second row: Profile + Saved Jobs */}
       <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
 
         {/* Profile completion card */}
@@ -390,8 +395,8 @@ export default function JobSeekerDashboard() {
                 profileCompletion >= 80
                   ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400"
                   : profileCompletion >= 50
-                  ? "bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400"
-                  : "bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400"
+                    ? "bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400"
+                    : "bg-rose-50 text-rose-600 dark:bg-rose-950/50 dark:text-rose-400"
               )}
             >
               {profileCompletion}%
@@ -413,8 +418,8 @@ export default function JobSeekerDashboard() {
                 profileCompletion >= 80
                   ? "bg-gradient-to-r from-emerald-400 to-teal-500"
                   : profileCompletion >= 50
-                  ? "bg-gradient-to-r from-amber-400 to-orange-500"
-                  : "bg-gradient-to-r from-rose-400 to-pink-500"
+                    ? "bg-gradient-to-r from-amber-400 to-orange-500"
+                    : "bg-gradient-to-r from-rose-400 to-pink-500"
               )}
               style={{ width: `${profileCompletion}%` }}
             />
@@ -528,7 +533,7 @@ export default function JobSeekerDashboard() {
         </section>
       </div>
 
-      {/* ── Application Pipeline Funnel ──────────────────────────────── */}
+      {/* ── Application Pipeline Funnel  */}
       <section className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
         <div className="flex items-center justify-between gap-4 border-b border-slate-100 px-5 py-4 dark:border-slate-800">
           <div className="flex items-center gap-2.5">
@@ -584,7 +589,7 @@ export default function JobSeekerDashboard() {
         </div>
       </section>
 
-      {/* ── Quick actions strip at the bottom ───────────────────────── */}
+      {/* ── Quick actions strip at the bottom  */}
       <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
 
         {/* Resume nudge */}

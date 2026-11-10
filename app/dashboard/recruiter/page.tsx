@@ -14,12 +14,8 @@ import {
   CheckCircle2,
   Calendar,
   PlusCircle,
-  TrendingUp,
-  Clock,
   ArrowRight,
   GitPullRequest,
-  BarChart2,
-  Eye,
 } from "lucide-react";
 import {
   BarChart,
@@ -61,7 +57,7 @@ export default function RecruiterDashboard() {
         <div className="flex items-center gap-2">
           <Link
             href="/dashboard/recruiter/pipeline"
-            className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
+            className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-800  px-3.5 py-2 text-xs font-semibold text-slate-700   dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
           >
             <GitPullRequest className="h-3.5 w-3.5 text-violet-600" />
             <span>Kanban Pipeline</span>
